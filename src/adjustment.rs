@@ -14,6 +14,7 @@ pub trait AdjustmentSettings {
 /// Adjusts the clock at a constant rate.
 /// The rate is a ratio, i.e. how many seconds the clock adjusts per second
 /// (or other unit of time, as the rate is unitless).
+#[derive(Clone)]
 pub struct ConstantRate(pub f64);
 
 impl AdjustmentSettings for ConstantRate {

@@ -7,7 +7,8 @@ use crate::AdjustmentSettings;
 /// All methods that need the current time have an [`std::time::Instant`] parameter.
 /// It is expected to nondecreasing, or there may be panics.
 /// You normally want to use [`Instant::now()`] for this argument.
-pub struct Clock<A: AdjustmentSettings> {
+#[derive(Clone)]
+pub struct Clock<A: AdjustmentSettings + Clone> {
     base: Instant,
     offset: Duration,
     /// The requested relative time at time `base`.
@@ -15,7 +16,7 @@ pub struct Clock<A: AdjustmentSettings> {
     adjustment_settings: A,
 }
 
-impl<A: AdjustmentSettings> Clock<A> {
+impl<A: AdjustmentSettings + Clone> Clock<A> {
     /// Start measuring the time, starting at `start_time` (typically [`Instant::now()`]).
     pub fn new(start_time: Instant, adjustment_settings: A) -> Self {
         Clock {
